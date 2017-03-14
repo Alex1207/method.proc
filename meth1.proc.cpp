@@ -1,7 +1,8 @@
 // —читывает из файла данные и переписывает их в другой файл в более читаемом виде(процедурный стиль)
 //+добавлен новый класс "зверь"
 //+добавлено новое поле "возраст"
-
+//+добавлена нова€ функци€ вычислени€ количества символов в имени
+//+сортировка
 #include "stdafx.h"
 #include <Windows.h>
 #include "iostream"
@@ -24,7 +25,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	container mas;
 	Init(mas);
 	In(mas, f1);
-	
+	Sort(mas);
 	ofstream f2(argv[2]);
 	Out(mas, f2);
 	Del(mas);

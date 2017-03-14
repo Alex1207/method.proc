@@ -66,6 +66,17 @@ void OutAnimal(animal Animal, ofstream  &f2)
 		beast* Beast = (beast*)(Animal.object);
 		OutBeast(Beast, f2);
 	}
-	cout << ", возраст: " << Animal.age << "\n";
-	f2 <<  ", возраст: " << Animal.age << "\n";
+	cout << ", возраст: " << Animal.age;
+	f2 <<  ", возраст: " << Animal.age;
+	cout << ". Количество символов в имени: " << AmountSymbolsOfString(Animal) << "\n";
+	f2 << ". Количество символов в имени: " << AmountSymbolsOfString(Animal) << "\n";
+}
+int AmountSymbolsOfString(animal Animal)
+{
+	string str = Animal.name;
+	return str.length();
+}
+bool Less(animal Animal1, animal Animal2)
+{
+	return (AmountSymbolsOfString(Animal1) > AmountSymbolsOfString(Animal2));
 }
