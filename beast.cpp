@@ -17,6 +17,6 @@ void InBeast(beast **Beast, ifstream &f1)
 }
 void OutBeast(beast* Beast, ofstream &f2)
 {
-	cout << " - это " << groups[Beast->Group - 1] << " звёр\n";
-	f2 << " - это " << groups[Beast->Group - 1] << " звёр\n";
+	cout << " - это " << groups[Beast->Group - 1] << " звёр";
+	f2 << " - это " << groups[Beast->Group - 1] << " звёр";
 }

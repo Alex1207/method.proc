@@ -53,6 +53,8 @@ void In(container &c, ifstream & f1)
 }
 void Out(container c, ofstream & f2)
 {
+	cout << "Общее количество: " << c.kol << endl;
+	f2 << "Общее количество: " << c.kol << endl;
 	for (int i = 0; i<c.n; i++)
 	{
 		//cout << "\n" << i << "\n";
