@@ -61,3 +61,7 @@ int AmountSymbolsOfString(animal Animal)
 	string str = Animal.name;
 	return str.length();
 }
+bool Less(animal Animal1, animal Animal2)
+{
+	return (AmountSymbolsOfString(Animal1) > AmountSymbolsOfString(Animal2));
+}

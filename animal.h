@@ -18,3 +18,4 @@ animal InAnimal( ifstream &f1);
 void OutAnimal(animal Animal, ofstream  &f2);
 int SumElementsOfString(animal Animal, int n);
 int AmountSymbolsOfString(animal Animal);
+bool Less(animal Animal1, animal Animal2);
