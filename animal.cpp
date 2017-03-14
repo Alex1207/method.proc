@@ -36,6 +36,7 @@ animal InAnimal( ifstream &f1)
 		Animal.key = BIRD;
 		Animal.object = (void*)Bird;
 	}
+	f1 >> Animal.age;
 	f1 >> Animal.name;
 	return Animal;
 }
@@ -53,4 +54,6 @@ void OutAnimal(animal Animal, ofstream  &f2)
 		bird* Bird = (bird*)(Animal.object);
 		OutBird(Bird, f2);
 	}
+	cout << ", возраст: " << Animal.age << "\n";
+	f2 <<  ", возраст: " << Animal.age << "\n";
 }

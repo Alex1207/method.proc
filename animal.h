@@ -11,6 +11,7 @@ struct animal
 {
 	type key;
 	void* object;
+	int age;
 	string name;
 };
 #endif
