@@ -1,5 +1,6 @@
 // —читывает из файла данные и переписывает их в другой файл в более читаемом виде(процедурный стиль)
 //+добавлен новый класс "зверь"
+//+добавлено новое поле "возраст"
 
 #include "stdafx.h"
 #include <Windows.h>
@@ -9,8 +10,6 @@
 #include <clocale>
 #include "container.h"
 using namespace std;
-
-enum place {river, lake, sea, ocean, pond, aquarium};
 
 int _tmain(int argc, _TCHAR* argv[])
 {	
