@@ -20,3 +20,4 @@ void Del(container &c);
 void In(container &c, ifstream & f1);
 void Out(container c, ofstream & f2);
 void Sort(container &c);
+void OutOnlyFish(container c, ofstream & f2);

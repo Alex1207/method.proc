@@ -110,3 +110,27 @@ void Sort(container &c)
 		}
 	}
 }
+void OutOnlyFish(container c, ofstream & f2)
+{
+	cout << "\n\nТолько рыбки:\n";
+	f2 << "\n\nТолько рыбки:\n";
+	for (int i = 0; i<c.n; i++)
+	{
+		//cout << "\n" << i << "\n";
+		if (c.mas[i] != NULL)
+		{
+			node* vn = c.mas[i];
+			while (vn)
+			{
+				if (vn->Animal.key == FISH)
+					OutAnimal(vn->Animal, f2);
+				else
+				{
+					cout << endl;
+					f2 << endl;
+				}
+				vn = vn->next;
+			}
+		}
+	}
+}
