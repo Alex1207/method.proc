@@ -5,7 +5,7 @@
 #include <fstream>
 #include "bird.h"
 #include "fish.h"
-
+#include "beast.h"
 using namespace std;
 int SumElementsOfString(animal Animal, int n)
 {
@@ -36,6 +36,13 @@ animal InAnimal( ifstream &f1)
 		Animal.key = BIRD;
 		Animal.object = (void*)Bird;
 	}
+	if (key == 2)//2-beast
+	{
+		beast* Beast = NULL;
+		InBeast(&Beast, f1);
+		Animal.key = BEAST;
+		Animal.object = (void*)Beast;
+	}
 	f1 >> Animal.name;
 	return Animal;
 }
@@ -52,5 +59,10 @@ void OutAnimal(animal Animal, ofstream  &f2)
 	{
 		bird* Bird = (bird*)(Animal.object);
 		OutBird(Bird, f2);
+	}
+	if (Animal.key == BEAST)
+	{
+		beast* Beast = (beast*)(Animal.object);
+		OutBeast(Beast, f2);
 	}
 }
