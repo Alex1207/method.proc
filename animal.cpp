@@ -53,4 +53,11 @@ void OutAnimal(animal Animal, ofstream  &f2)
 		bird* Bird = (bird*)(Animal.object);
 		OutBird(Bird, f2);
 	}
+	cout << ". Количество символов в имени: " << AmountSymbolsOfString(Animal) << "\n";
+	f2 << ". Количество символов в имени: " << AmountSymbolsOfString(Animal) << "\n";
+}
+int AmountSymbolsOfString(animal Animal)
+{
+	string str = Animal.name;
+	return str.length();
 }

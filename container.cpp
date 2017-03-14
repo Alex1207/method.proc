@@ -53,18 +53,16 @@ void In(container &c, ifstream & f1)
 }
 void Out(container c, ofstream & f2)
 {
-	cout << "Общее количество: " << c.kol << endl;
-	f2 << "Общее количество: " << c.kol << endl;
 	for (int i = 0; i<c.n; i++)
 	{
 		//cout << "\n" << i << "\n";
 		if (c.mas[i] != NULL)
 		{
 			node* vn = c.mas[i];
-			while (c.mas[i])
+			while (vn)
 			{
-				OutAnimal(c.mas[i]->Animal, f2);
-				c.mas[i] = c.mas[i]->next;
+				OutAnimal(vn->Animal, f2);
+				vn = vn->next;
 			}
 		}
 	}
