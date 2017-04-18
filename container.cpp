@@ -17,7 +17,7 @@ void Init(container &c)
 }
 void Del(container &c)
 {
-	for (int i = 0; i<c.n; i++)
+	for (int i = 0; i < c.n; i++)
 	{
 		while (c.mas[i] != NULL)
 		{
@@ -26,11 +26,12 @@ void Del(container &c)
 			c.mas[i] = vn;
 		}
 	}
+	c.kol = 0;
 }
 void In(container &c, ifstream & f1)
 {	
 	f1 >> c.kol;
-	for (int i = 0; i<c.kol; i++)
+	for (int i = 0; i < c.kol; i++)
 	{
 		animal Animal;
 		Animal = InAnimal(f1);
@@ -53,9 +54,12 @@ void In(container &c, ifstream & f1)
 }
 void Out(container c, ofstream & f2)
 {
-	for (int i = 0; i<c.n; i++)
+	//cout << "Общее количество: " << c.kol << "\n";
+	f2 << "Общее количество: " << c.kol << "\n";
+	for (int i = 0; i < c.n; i++)
 	{
-		cout << "\n" << i << "\n";
+		//cout << "\n" << i << "\n";
+		f2 << "\n" << i << "\n";
 		if (c.mas[i] != NULL)
 		{
 			node* vn = c.mas[i];
@@ -69,7 +73,7 @@ void Out(container c, ofstream & f2)
 }
 void Sort(container &c)
 {
-	for (int k = 0; k<c.n; k++)
+	for (int k = 0; k < c.n; k++)
 	{
 		int koli = 0;
 		node* prev;
@@ -112,9 +116,9 @@ void Sort(container &c)
 }
 void OutOnlyFish(container c, ofstream & f2)
 {
-	cout << "\n\nТолько рыбки:\n";
-	f2 << "\n\nТолько рыбки:\n";
-	for (int i = 0; i<c.n; i++)
+	//cout << "\nТолько рыбки:\n";
+	f2 << "\nТолько рыбки:\n";
+	for (int i = 0; i < c.n; i++)
 	{
 		//cout << "\n" << i << "\n";
 		if (c.mas[i] != NULL)
@@ -126,11 +130,21 @@ void OutOnlyFish(container c, ofstream & f2)
 					OutAnimal(vn->Animal, f2);
 				else
 				{
-					cout << endl;
+					//cout << endl;
 					f2 << endl;
 				}
 				vn = vn->next;
 			}
 		}
 	}
+}
+int SumElementsOfString(animal Animal, int n)
+{
+	string str = Animal.name;
+	int sum = 0;
+	for (int i = 0; i < str.length(); i++)
+	{
+		sum = (sum + (unsigned char)str[i])%n;
+	}
+	return sum;
 }

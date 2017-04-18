@@ -15,6 +15,6 @@ void InFish(fish **Fish, ifstream &f1)
 }
 void OutFish(fish* Fish, ofstream &f2)
 {
-	cout << " - это рыбка" << ", место ее обитания: " << places[Fish->Place];
+	//cout << " - это рыбка" << ", место ее обитания: " << places[Fish->Place];
 	f2 << " - это рыбка" <<  ", место ее обитания: " << places[Fish->Place];
 }

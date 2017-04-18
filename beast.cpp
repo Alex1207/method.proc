@@ -11,12 +11,12 @@ void InBeast(beast **Beast, ifstream &f1)
 	beast *B = new beast;
 	int q;
 	f1 >> q; 
-	B->Group = q + 1;
+	B->Group = q;
 	//f1 >> F->name;
 	*Beast = B;
 }
 void OutBeast(beast* Beast, ofstream &f2)
 {
-	cout << " - это " << groups[Beast->Group - 1] << " звёр";
-	f2 << " - это " << groups[Beast->Group - 1] << " звёр";
+	//cout << " - это " << groups[Beast->Group] << " звёр";
+	f2 << " - это " << groups[Beast->Group] << " звёр";
 }

@@ -7,17 +7,7 @@
 #include "fish.h"
 #include "beast.h"
 using namespace std;
-int SumElementsOfString(animal Animal, int n)
-{
-	string str = Animal.name;
-	int sum = 0;
-	for (int i = 0; i < str.length(); i++)
-	{
-		sum = (sum + (unsigned char)str[i])%n;
-	}
-	return sum;
-}
-animal InAnimal( ifstream &f1)
+animal InAnimal(ifstream &f1)
 {
 	animal Animal;
 	int key;
@@ -49,7 +39,7 @@ animal InAnimal( ifstream &f1)
 }
 void OutAnimal(animal Animal, ofstream  &f2)
 {
-	cout << Animal.name;
+	//cout << Animal.name;
 	f2 << Animal.name;
 	if (Animal.key == FISH)
 	{
@@ -66,9 +56,9 @@ void OutAnimal(animal Animal, ofstream  &f2)
 		beast* Beast = (beast*)(Animal.object);
 		OutBeast(Beast, f2);
 	}
-	cout << ", возраст: " << Animal.age;
+	//cout << ", возраст: " << Animal.age;
 	f2 <<  ", возраст: " << Animal.age;
-	cout << ". Количество символов в имени: " << AmountSymbolsOfString(Animal) << "\n";
+	//cout << ". Количество символов в имени: " << AmountSymbolsOfString(Animal) << "\n";
 	f2 << ". Количество символов в имени: " << AmountSymbolsOfString(Animal) << "\n";
 }
 int AmountSymbolsOfString(animal Animal)
@@ -78,5 +68,5 @@ int AmountSymbolsOfString(animal Animal)
 }
 bool Less(animal Animal1, animal Animal2)
 {
-	return (AmountSymbolsOfString(Animal1) > AmountSymbolsOfString(Animal2));
+	return (AmountSymbolsOfString(Animal1) < AmountSymbolsOfString(Animal2));
 }
