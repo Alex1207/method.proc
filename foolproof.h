@@ -2,8 +2,10 @@
 #include "iostream"
 #include <fstream>
 using namespace std;
-void CheckFileExist(ifstream &f1);
-void CheckEmptyFile(ifstream &f1);
-void CheckFileEnd(ifstream &f1);
-void CheckInputValue(ifstream &f1);
-	
+#ifndef __foolproof__ 
+#define __foolproof__
+void CheckFileExist(ifstream &File);
+void CheckEmptyFile(ifstream &File);
+void CheckFileEnd(ifstream &File);
+void CheckInputValue(ifstream &File);
+#endif

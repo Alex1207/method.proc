@@ -8,5 +8,5 @@ struct bird
 	//string name;
 	bool migration;
 };
-void InBird(bird **Bird, ifstream &f1);
-void OutBird(bird *Bird, ofstream &f2);
+void InBird(bird **Bird, ifstream &InFile);
+void OutBird(bird *Bird, ofstream &OutFile);

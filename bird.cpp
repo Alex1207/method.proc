@@ -6,16 +6,16 @@
 #include <fstream>
 
 using namespace std;
-void InBird(bird **Bird, ifstream &f1)
+void InBird(bird **Bird, ifstream &InFile)
 {	
-	CheckFileExist(f1);
-	CheckFileEnd(f1);
+	CheckFileExist(InFile);
+	CheckFileEnd(InFile);
 	bird* B = new bird;
-	int M = 0;
-	f1 >> M;
-	CheckInputValue(f1);
-	if ((M == 0) || (M == 1))	
-		B->migration = M;
+	int Migration = 0;
+	InFile >> Migration;
+	CheckInputValue(InFile);
+	if ((Migration == 0) || (Migration == 1))	
+		B->migration = Migration;
 	else 	
 	{
 		cout << "Неверные данные во входном файле(миграция птиц может принимать только значения 1 или 0)!\n";
@@ -25,18 +25,18 @@ void InBird(bird **Bird, ifstream &f1)
 	//f1 >> B->name;
 	*Bird = B;
 }
-void OutBird(bird *Bird, ofstream &f2)
+void OutBird(bird *Bird, ofstream &OutFile)
 {
 	//cout << " - это птичка, которая ";  
-	f2 << " - это птичка, которая "; 
+	OutFile << " - это птичка, которая "; 
 	if(Bird->migration)
 	{
 		//cout << "мигрирует";
-		f2 << "мигрирует";
+		OutFile << "мигрирует";
 	}
 	else 
 	{
 		//cout << "не мигрирует";
-		f2 << "не мигрирует";
+		OutFile << "не мигрирует";
 	}
 }

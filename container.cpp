@@ -6,161 +6,162 @@
 #include <fstream>
 
 using namespace std;
-void Init(container &c)
+void Init(container &Cont)
 {
-	c.kol = 0;
-	c.n = 10;
-	c.mas = new node*[c.n];
-	for (int i = 0; i < c.n; i++)
+	Cont.kol = 0;
+	Cont.n = 10;
+	Cont.mas = new node*[Cont.n];
+	for (int i = 0; i < Cont.n; i++)
 	{
-		c.mas[i] = NULL;
+		Cont.mas[i] = NULL;
 	}
 }
-void Del(container &c)
+void Del(container &Cont)
 {
-	for (int i = 0; i < c.n; i++)
+	for (int i = 0; i < Cont.n; i++)
 	{
-		while (c.mas[i] != NULL)
+		while (Cont.mas[i] != NULL)
 		{
-			node* vn = c.mas[i]->next;
-			delete c.mas[i];
-			c.mas[i] = vn;
+			node* Node = Cont.mas[i]->next;
+			delete Cont.mas[i];
+			Cont.mas[i] = Node;
 		}
 	}
-	c.kol = 0;
+	Cont.kol = 0;
 }
-void In(container &c, ifstream & f1)
+void In(container &Cont, ifstream & InFile)
 {	
-	CheckFileExist(f1);
-	CheckEmptyFile(f1);
-	int kol;
-	f1 >> kol;
-	CheckInputValue(f1);	
-	if (kol<0) 	
+	CheckFileExist(InFile);
+	CheckEmptyFile(InFile);
+	int Kol;
+	InFile >> Kol;
+	CheckInputValue(InFile);	
+	if (Kol<0) 	
 	{
 		cout << "Неверные данные во входном файле(Количество животных не может быть отрицательным)!\n";
 		system("pause");
 		exit(1);
 	}
-	c.kol = kol;
-	for (int i = 0; i < c.kol; i++)
+	Cont.kol = Kol;
+	for (int i = 0; i < Cont.kol; i++)
 	{
 		animal Animal;
-		Animal = InAnimal(f1);
-		int sum = 0;
-		sum = SumElementsOfString(Animal, c.n);
-		if (c.mas[sum] == NULL)
+		//int a = InAnimal(Animal, f1);
+		Animal = InAnimal(InFile);//InAnimal(Animal, f1);
+		int Sum = 0;
+		Sum = SumElementsOfString(Animal, Cont.n);
+		if (Cont.mas[Sum] == NULL)
 		{
-			c.mas[sum] = new node;
-			c.mas[sum]->next = NULL;
-			c.mas[sum]->Animal = Animal;
+			Cont.mas[Sum] = new node;
+			Cont.mas[Sum]->next = NULL;
+			Cont.mas[Sum]->nAnimal = Animal;
 		}
 		else
 		{
-			node* vn = new node;
-			vn->next = c.mas[sum];
-			vn->Animal = Animal;
-			c.mas[sum] = vn;
+			node* Node = new node;
+			Node->next = Cont.mas[Sum];
+			Node->nAnimal = Animal;
+			Cont.mas[Sum] = Node;
 		}
 	}	
-	if(!f1.eof())
+	if(!InFile.eof())
 	{
 		cout << "После считанных данных в файле есть что-то еще. Эта информация обрабатываться не будет\n";
 	}
 }
-void Out(container c, ofstream & f2)
+void Out(container Cont, ofstream &OutFile)
 {
 	//cout << "Общее количество: " << c.kol << "\n";
-	f2 << "Общее количество: " << c.kol << "\n";
-	for (int i = 0; i < c.n; i++)
+	OutFile << "Общее количество: " << Cont.kol << "\n";
+	for (int i = 0; i < Cont.n; i++)
 	{
 		//cout << "\n" << i << "\n";
-		f2 << "\n" << i << "\n";
-		if (c.mas[i] != NULL)
+		OutFile << "\n" << i << "\n";
+		if (Cont.mas[i] != NULL)
 		{
-			node* vn = c.mas[i];
-			while (vn)
+			node* Node = Cont.mas[i];
+			while (Node)
 			{
-				OutAnimal(vn->Animal, f2);
-				vn = vn->next;
+				OutAnimal(Node->nAnimal, OutFile);
+				Node = Node->next;
 			}
 		}
 	}
 }
-void Sort(container &c)
+void Sort(container &Cont)
 {
-	for (int k = 0; k < c.n; k++)
+	for (int k = 0; k < Cont.n; k++)
 	{
-		int koli = 0;
-		node* prev;
-		node* Node = c.mas[k];
+		int Koli = 0;
+		node* Prev;
+		node* Node = Cont.mas[k];
 		while(Node)
 		{
 			Node = Node->next;
-			koli++;
+			Koli++;
 		}
-		for(int i = 0; i < koli - 1; i++) 
+		for(int i = 0; i < Koli - 1; i++) 
 		{
-			node* prev;
-			Node = c.mas[k];
-			for(int j = i + 1; j < koli; j++) 
+			node* Prev;
+			Node = Cont.mas[k];
+			for(int j = i + 1; j < Koli; j++) 
 			{
-				if(Less(Node->Animal, Node->next->Animal))
+				if(Less(Node->nAnimal, Node->next->nAnimal))
 				{
-					node* next = Node->next;
+					node* Next = Node->next;
 					Node->next = Node->next->next;
-					next->next = Node;
-					if(Node == c.mas[k])
+					Next->next = Node;
+					if(Node == Cont.mas[k])
 					{
-						c.mas[k] = next;
-						prev = next;
+						Cont.mas[k] = Next;
+						Prev = Next;
 					}
 					else
 					{
-						prev->next = next;
-						prev = next;
+						Prev->next = Next;
+						Prev = Next;
 					}
 				}
 				else 
 				{
-					prev = Node;
+					Prev = Node;
 					Node = Node->next;
 				}
 			}
 		}
 	}
 }
-void OutOnlyFish(container c, ofstream & f2)
+void OutOnlyFish(container Cont, ofstream & OutFile)
 {
 	//cout << "\nТолько рыбки:\n";
-	f2 << "\nТолько рыбки:\n";
-	for (int i = 0; i < c.n; i++)
+	OutFile << "\nТолько рыбки:\n";
+	for (int i = 0; i < Cont.n; i++)
 	{
 		//cout << "\n" << i << "\n";
-		if (c.mas[i] != NULL)
+		if (Cont.mas[i] != NULL)
 		{
-			node* vn = c.mas[i];
-			while (vn)
+			node* Node = Cont.mas[i];
+			while (Node)
 			{
-				if (vn->Animal.key == FISH)
-					OutAnimal(vn->Animal, f2);
+				if (Node->nAnimal.key == FISH)
+					OutAnimal(Node->nAnimal, OutFile);
 				else
 				{
 					//cout << endl;
-					f2 << endl;
+					OutFile << endl;
 				}
-				vn = vn->next;
+				Node = Node->next;
 			}
 		}
 	}
 }
-int SumElementsOfString(animal Animal, int n)
+int SumElementsOfString(animal Animal, int N)
 {
-	string str = Animal.name;
-	int sum = 0;
-	for (int i = 0; i < str.length(); i++)
+	string Str = Animal.name;
+	int Sum = 0;
+	for (int i = 0; i < Str.length(); i++)
 	{
-		sum = (sum + (unsigned char)str[i])%n;
+		Sum = (Sum + (unsigned char)Str[i])%N;
 	}
-	return sum;
+	return Sum;
 }

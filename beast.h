@@ -7,7 +7,7 @@ using namespace std;
 struct beast
 {
 	//string name;
-	int Group;//млекопитающие, траво€дные, хищники, все€дные
+	int group;//млекопитающие, траво€дные, хищники, все€дные
 };
-void InBeast(beast **Beast, ifstream &f1);
-void OutBeast(beast *Beast, ofstream &f2);
+void InBeast(beast **Beast, ifstream &InFile);
+void OutBeast(beast *Beast, ofstream &OutFile);

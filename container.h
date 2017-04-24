@@ -6,7 +6,7 @@
 using namespace std;
 struct node//узел
 {
-	animal Animal;
+	animal nAnimal;
 	node* next;
 };
 struct container
@@ -15,10 +15,10 @@ struct container
 	int n;
 	node** mas;
 };
-void Init(container &c);
-void Del(container &c);
-void In(container &c, ifstream & f1);
-void Out(container c, ofstream & f2);
-void Sort(container &c);
-void OutOnlyFish(container c, ofstream & f2);
-int SumElementsOfString(animal Animal, int n);
+void Init(container &Cont);
+void Del(container &Cont);
+void In(container &Cont, ifstream &InFile);
+void Out(container Cont, ofstream &OutFile);
+void Sort(container &Cont);
+void OutOnlyFish(container Cont, ofstream & OutFile);
+int SumElementsOfString(animal Animal, int N);

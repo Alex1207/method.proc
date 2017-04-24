@@ -7,7 +7,7 @@ using namespace std;
 struct fish
 {
 	//string name;
-	int Place;
+	int place;
 };
-void InFish(fish **Fish, ifstream &f1);
-void OutFish(fish* Fish, ofstream &f2);
+void InFish(fish **Fish, ifstream &InFile);
+void OutFish(fish* Fish, ofstream &OutFile);

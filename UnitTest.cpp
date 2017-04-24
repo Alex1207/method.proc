@@ -62,13 +62,13 @@ TEST_F(CFishTest, CheckFishIn) //
 	fish *Fish;
 	InFish(&Fish, f1);
 	f1.close();
-	ASSERT_TRUE(Fish->Place == 2) << "Fish input test was failed!!";
+	ASSERT_TRUE(Fish->place == 2) << "Fish input test was failed!!";
 }
 TEST_F(CFishTest, CheckFishOut) //
 {
 	fish *Fish;
 	Fish = new fish;
-	Fish->Place = 1;
+	Fish->place = 1;
 	ofstream f2("aOutFish.txt");
 	OutFish(Fish, f2);
 	f2.close();
@@ -88,13 +88,13 @@ TEST_F(CBeastTest, CheckBeastIn) //
 	beast *Beast;
 	InBeast(&Beast, f1);
 	f1.close();
-	ASSERT_TRUE(Beast->Group == 3) << "Beast input test was failed!!";
+	ASSERT_TRUE(Beast->group == 2) << "Beast input test was failed!!";
 }
 TEST_F(CBeastTest, CheckBeastOut) //
 {
 	beast *Beast;
 	Beast = new beast;
-	Beast->Group = 1;
+	Beast->group = 1;
 	ofstream f2("aOutBeast.txt");
 	OutBeast(Beast, f2);
 	f2.close();
@@ -110,9 +110,9 @@ bool AnimalCompare(animal a1, animal a2)
 	if (a1.key == BIRD)
 		return((a1.key == a2.key)&&(a1.age == a2.age)&&(a1.name == a2.name)&&(((bird*)a1.object)->migration == ((bird*)a2.object)->migration));
 	if (a1.key == FISH)
-		return((a1.key == a2.key)&&(a1.age == a2.age)&&(a1.name == a2.name)&&(((fish*)a1.object)->Place == ((fish*)a2.object)->Place));
+		return((a1.key == a2.key)&&(a1.age == a2.age)&&(a1.name == a2.name)&&(((fish*)a1.object)->place == ((fish*)a2.object)->place));
 	if (a1.key == BEAST)
-		return((a1.key == a2.key)&&(a1.age == a2.age)&&(a1.name == a2.name)&&(((beast*)a1.object)->Group == ((beast*)a2.object)->Group));
+		return((a1.key == a2.key)&&(a1.age == a2.age)&&(a1.name == a2.name)&&(((beast*)a1.object)->group == ((beast*)a2.object)->group));
 }
 
 void NewInAnimal(animal &Animal, type key, int age, string name, int param)
@@ -129,7 +129,7 @@ void NewInAnimal(animal &Animal, type key, int age, string name, int param)
 	if (key == FISH)
 	{		
 		fish *Fish;
-		Fish = new fish; Fish->Place = param;
+		Fish = new fish; Fish->place = param;
 		Animal.key = FISH; 
 		Animal.age = age; 
 		Animal.name = name; 
@@ -138,7 +138,7 @@ void NewInAnimal(animal &Animal, type key, int age, string name, int param)
 	if (key == BEAST)
 	{		
 		beast *Beast;
-		Beast = new beast; Beast->Group = param;
+		Beast = new beast; Beast->group = param;
 		Animal.key = BEAST; 
 		Animal.age = age; 
 		Animal.name = name; 
@@ -153,19 +153,19 @@ TEST_F(CAnimalTest, CheckAnimalIn) //
 	animal actual;
 	animal expect;
 	ifstream f1("InAnimalBird.txt");
-	InAnimal(actual, f1);
+	actual = InAnimal(f1);
 	f1.close();
 	NewInAnimal(expect, BIRD, 5, "клест", 1);
 	EXPECT_TRUE(AnimalCompare(actual, expect)) << "Animal(Bird) input test was failed!!";
 
 	ifstream f2("InAnimalFish.txt");
-	InAnimal(actual, f2);
+	actual = InAnimal(f2);
 	f2.close();
 	NewInAnimal(expect, FISH, 13, "лещ", 3);
 	EXPECT_TRUE(AnimalCompare(actual, expect)) << "Animal(Fish) input test was failed!!";
 
 	ifstream f3("InAnimalBeast.txt");
-	InAnimal(actual, f3);
+	actual = InAnimal(f3);
 	f3.close();
 	NewInAnimal(expect, BEAST, 21, "человек", 2);
 	EXPECT_TRUE(AnimalCompare(actual, expect)) << "Animal(Beast) input test was failed!!";
@@ -233,6 +233,7 @@ void EmptyContainer(container &c)
 }
 bool ContainerCompare(container c1, container c2)
 {
+	//system("pause");
 	if (c1.n != c2.n)
 	{
 		cout << "N\n\n\n";
@@ -240,6 +241,7 @@ bool ContainerCompare(container c1, container c2)
 	}
 	if (c1.kol != c2.kol)
 	{
+		//system("pause");
 		cout << "KOL\n\n\n";
 		return false;
 	}
@@ -258,7 +260,7 @@ bool ContainerCompare(container c1, container c2)
 			{
 				if ((vn1 != NULL)^(vn2 != NULL))
 					return false;
-				if (!(AnimalCompare(vn1->Animal, vn2->Animal)))
+				if (!(AnimalCompare(vn1->nAnimal, vn2->nAnimal)))
 				{
 					cout << "ANI\n\n\n";
 					return false;
@@ -278,25 +280,25 @@ void ExpectContainer1(container &c)
 
 	c.mas[0] = new node;
 	NewInAnimal(Animal, BIRD, 2, "голубь", 0);	
-	c.mas[0]->Animal = Animal; c.mas[0]->next = NULL;
+	c.mas[0]->nAnimal = Animal; c.mas[0]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, FISH, 3, "осетр", 0); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, FISH, 3, "осетр", 0); vn->nAnimal = Animal; c.mas[0] = vn;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "кукушка", 0); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "кукушка", 0); vn->nAnimal = Animal; c.mas[0] = vn;
 
 	c.mas[1] = new node;
 	NewInAnimal(Animal, BIRD, 5, "клест", 1);
-	c.mas[1]->Animal = Animal; c.mas[1]->next = NULL;
+	c.mas[1]->nAnimal = Animal; c.mas[1]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 1, "слон", 0); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 1, "слон", 0); vn->nAnimal = Animal; c.mas[1] = vn;
 	vn = new node;
-	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 9, "тигр", 1); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 9, "тигр", 1); vn->nAnimal = Animal; c.mas[1] = vn;
 
 	//c.mas[2] = NULL;
 
 	c.mas[3] = new node;
 	NewInAnimal(Animal, FISH, 13, "лещ", 3);
-	c.mas[3]->Animal = Animal; c.mas[3]->next = NULL;
+	c.mas[3]->nAnimal = Animal; c.mas[3]->next = NULL;
 
 	//c.mas[4] = NULL;
 	//c.mas[5] = NULL;
@@ -305,11 +307,11 @@ void ExpectContainer1(container &c)
 
 	c.mas[8] = new node;
 	NewInAnimal(Animal, BEAST, 21, "человек", 2);
-	c.mas[8]->Animal = Animal; c.mas[8]->next = NULL;
+	c.mas[8]->nAnimal = Animal; c.mas[8]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 4, "язь", 3); vn->Animal = Animal; c.mas[8] = vn;
+	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 4, "язь", 3); vn->nAnimal = Animal; c.mas[8] = vn;
 	vn = new node;
-	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 6, "форель", 1); vn->Animal = Animal; c.mas[8] = vn;
+	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 6, "форель", 1); vn->nAnimal = Animal; c.mas[8] = vn;
 
 	//c.mas[9] = NULL;
 }
@@ -321,50 +323,50 @@ void ExpectContainer2(container &c)
 
 	c.mas[0] = new node;
 	NewInAnimal(Animal, BIRD, 2, "голубь", 0);	
-	c.mas[0]->Animal = Animal; c.mas[0]->next = NULL;
+	c.mas[0]->nAnimal = Animal; c.mas[0]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, FISH, 3, "осетр", 0); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, FISH, 3, "осетр", 0); vn->nAnimal = Animal; c.mas[0] = vn;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "кукушка", 0); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "кукушка", 0); vn->nAnimal = Animal; c.mas[0] = vn;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "журавль", 1); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "журавль", 1); vn->nAnimal = Animal; c.mas[0] = vn;
 
 	c.mas[1] = new node;
 	NewInAnimal(Animal, BIRD, 5, "клест", 1);
-	c.mas[1]->Animal = Animal; c.mas[1]->next = NULL;
+	c.mas[1]->nAnimal = Animal; c.mas[1]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 1, "слон", 0); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 1, "слон", 0); vn->nAnimal = Animal; c.mas[1] = vn;
 	vn = new node;
-	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 9, "тигр", 1); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 9, "тигр", 1); vn->nAnimal = Animal; c.mas[1] = vn;
 	vn = new node;
-	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 8, "змея", 1); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 8, "змея", 1); vn->nAnimal = Animal; c.mas[1] = vn;
 
 	//c.mas[2] = NULL;
 
 	c.mas[3] = new node;
 	NewInAnimal(Animal, FISH, 13, "лещ", 3);
-	c.mas[3]->Animal = Animal; c.mas[3]->next = NULL;
+	c.mas[3]->nAnimal = Animal; c.mas[3]->next = NULL;
 
 	c.mas[4] = new node;
 	NewInAnimal(Animal, BEAST, 5, "кот", 1);
-	c.mas[4]->Animal = Animal; c.mas[4]->next = NULL;
+	c.mas[4]->nAnimal = Animal; c.mas[4]->next = NULL;
 	//c.mas[5] = NULL;
 	//c.mas[6] = NULL;
 	//c.mas[7] = NULL;
 
 	c.mas[8] = new node;
 	NewInAnimal(Animal, BEAST, 21, "человек", 2);
-	c.mas[8]->Animal = Animal; c.mas[8]->next = NULL;
+	c.mas[8]->nAnimal = Animal; c.mas[8]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 4, "язь", 3); vn->Animal = Animal; c.mas[8] = vn;
+	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 4, "язь", 3); vn->nAnimal = Animal; c.mas[8] = vn;
 	vn = new node;
-	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 6, "форель", 1); vn->Animal = Animal; c.mas[8] = vn;
+	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 6, "форель", 1); vn->nAnimal = Animal; c.mas[8] = vn;
 
 	c.mas[9] = new node;
 	NewInAnimal(Animal, FISH, 10, "пескарь", 4);
-	c.mas[9]->Animal = Animal; c.mas[9]->next = NULL;
+	c.mas[9]->nAnimal = Animal; c.mas[9]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[9]; NewInAnimal(Animal, BIRD, 2, "дятел", 1); vn->Animal = Animal; c.mas[9] = vn;
+	vn->next = c.mas[9]; NewInAnimal(Animal, BIRD, 2, "дятел", 1); vn->nAnimal = Animal; c.mas[9] = vn;
 }
 void ExpectContainer1Sort(container &c)
 {
@@ -374,25 +376,25 @@ void ExpectContainer1Sort(container &c)
 
 	c.mas[0] = new node;
 	 NewInAnimal(Animal, FISH, 3, "осетр", 0);	
-	c.mas[0]->Animal = Animal; c.mas[0]->next = NULL;
+	c.mas[0]->nAnimal = Animal; c.mas[0]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 2, "голубь", 0); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 2, "голубь", 0); vn->nAnimal = Animal; c.mas[0] = vn;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "кукушка", 0); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "кукушка", 0); vn->nAnimal = Animal; c.mas[0] = vn;
 
 	c.mas[1] = new node;
 	NewInAnimal(Animal, BEAST, 1, "слон", 0);
-	c.mas[1]->Animal = Animal; c.mas[1]->next = NULL;
+	c.mas[1]->nAnimal = Animal; c.mas[1]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 9, "тигр", 1); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 9, "тигр", 1); vn->nAnimal = Animal; c.mas[1] = vn;
 	vn = new node;
-	vn->next = c.mas[1];NewInAnimal(Animal, BIRD, 5, "клест", 1); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1];NewInAnimal(Animal, BIRD, 5, "клест", 1); vn->nAnimal = Animal; c.mas[1] = vn;
 
 	//c.mas[2] = NULL;
 
 	c.mas[3] = new node;
 	NewInAnimal(Animal, FISH, 13, "лещ", 3);
-	c.mas[3]->Animal = Animal; c.mas[3]->next = NULL;
+	c.mas[3]->nAnimal = Animal; c.mas[3]->next = NULL;
 
 	//c.mas[4] = NULL;
 	//c.mas[5] = NULL;
@@ -401,11 +403,11 @@ void ExpectContainer1Sort(container &c)
 
 	c.mas[8] = new node;
 	NewInAnimal(Animal, FISH, 4, "язь", 3);
-	c.mas[8]->Animal = Animal; c.mas[8]->next = NULL;
+	c.mas[8]->nAnimal = Animal; c.mas[8]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 6, "форель", 1); vn->Animal = Animal; c.mas[8] = vn;
+	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 6, "форель", 1); vn->nAnimal = Animal; c.mas[8] = vn;
 	vn = new node;
-	vn->next = c.mas[8]; NewInAnimal(Animal, BEAST, 21, "человек", 2); vn->Animal = Animal; c.mas[8] = vn;
+	vn->next = c.mas[8]; NewInAnimal(Animal, BEAST, 21, "человек", 2); vn->nAnimal = Animal; c.mas[8] = vn;
 
 	//c.mas[9] = NULL;
 }
@@ -417,50 +419,50 @@ void ExpectContainer2Sort(container &c)
 
 	c.mas[0] = new node;
 	NewInAnimal(Animal, FISH, 3, "осетр", 0);	
-	c.mas[0]->Animal = Animal; c.mas[0]->next = NULL;
+	c.mas[0]->nAnimal = Animal; c.mas[0]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 2, "голубь", 0); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 2, "голубь", 0); vn->nAnimal = Animal; c.mas[0] = vn;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "кукушка", 0); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "кукушка", 0); vn->nAnimal = Animal; c.mas[0] = vn;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "журавль", 1); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "журавль", 1); vn->nAnimal = Animal; c.mas[0] = vn;
 
 	c.mas[1] = new node;
 	NewInAnimal(Animal, BEAST, 1, "слон", 0);
-	c.mas[1]->Animal = Animal; c.mas[1]->next = NULL;
+	c.mas[1]->nAnimal = Animal; c.mas[1]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 9, "тигр", 1); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 9, "тигр", 1); vn->nAnimal = Animal; c.mas[1] = vn;
 	vn = new node;
-	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 8, "змея", 1); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 8, "змея", 1); vn->nAnimal = Animal; c.mas[1] = vn;
 	vn = new node;
-	vn->next = c.mas[1]; NewInAnimal(Animal, BIRD, 5, "клест", 1); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1]; NewInAnimal(Animal, BIRD, 5, "клест", 1); vn->nAnimal = Animal; c.mas[1] = vn;
 
 	//c.mas[2] = NULL;
 
 	c.mas[3] = new node;
 	NewInAnimal(Animal, FISH, 13, "лещ", 3);
-	c.mas[3]->Animal = Animal; c.mas[3]->next = NULL;
+	c.mas[3]->nAnimal = Animal; c.mas[3]->next = NULL;
 
 	c.mas[4] = new node;
 	NewInAnimal(Animal, BEAST, 5, "кот", 1);
-	c.mas[4]->Animal = Animal; c.mas[4]->next = NULL;
+	c.mas[4]->nAnimal = Animal; c.mas[4]->next = NULL;
 	//c.mas[5] = NULL;
 	//c.mas[6] = NULL;
 	//c.mas[7] = NULL;
 
 	c.mas[8] = new node;
 	NewInAnimal(Animal, FISH, 4, "язь", 3);
-	c.mas[8]->Animal = Animal; c.mas[8]->next = NULL;
+	c.mas[8]->nAnimal = Animal; c.mas[8]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 6, "форель", 1); vn->Animal = Animal; c.mas[8] = vn;
+	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 6, "форель", 1); vn->nAnimal = Animal; c.mas[8] = vn;
 	vn = new node;
-	vn->next = c.mas[8]; NewInAnimal(Animal, BEAST, 21, "человек", 2); vn->Animal = Animal; c.mas[8] = vn;
+	vn->next = c.mas[8]; NewInAnimal(Animal, BEAST, 21, "человек", 2); vn->nAnimal = Animal; c.mas[8] = vn;
 
 	c.mas[9] = new node;
 	NewInAnimal(Animal, BIRD, 2, "дятел", 1);
-	c.mas[9]->Animal = Animal; c.mas[9]->next = NULL;
+	c.mas[9]->nAnimal = Animal; c.mas[9]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[9]; NewInAnimal(Animal, FISH, 10, "пескарь", 4); vn->Animal = Animal; c.mas[9] = vn;
+	vn->next = c.mas[9]; NewInAnimal(Animal, FISH, 10, "пескарь", 4); vn->nAnimal = Animal; c.mas[9] = vn;
 }
 void ExpectContainer2Desort(container &c)
 {
@@ -470,50 +472,50 @@ void ExpectContainer2Desort(container &c)
 
 	c.mas[0] = new node;
 	NewInAnimal(Animal, BIRD, 7, "кукушка", 0);	
-	c.mas[0]->Animal = Animal; c.mas[0]->next = NULL;
+	c.mas[0]->nAnimal = Animal; c.mas[0]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "журавль", 1); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 7, "журавль", 1); vn->nAnimal = Animal; c.mas[0] = vn;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 2, "голубь", 0); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, BIRD, 2, "голубь", 0); vn->nAnimal = Animal; c.mas[0] = vn;
 	vn = new node;
-	vn->next = c.mas[0]; NewInAnimal(Animal, FISH, 3, "осетр", 0); vn->Animal = Animal; c.mas[0] = vn;
+	vn->next = c.mas[0]; NewInAnimal(Animal, FISH, 3, "осетр", 0); vn->nAnimal = Animal; c.mas[0] = vn;
 
 	c.mas[1] = new node;
 	NewInAnimal(Animal, BIRD, 5, "клест", 1);
-	c.mas[1]->Animal = Animal; c.mas[1]->next = NULL;
+	c.mas[1]->nAnimal = Animal; c.mas[1]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 1, "слон", 0); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 1, "слон", 0); vn->nAnimal = Animal; c.mas[1] = vn;
 	vn = new node;
-	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 9, "тигр", 1); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 9, "тигр", 1); vn->nAnimal = Animal; c.mas[1] = vn;
 	vn = new node;
-	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 8, "змея", 1); vn->Animal = Animal; c.mas[1] = vn;
+	vn->next = c.mas[1]; NewInAnimal(Animal, BEAST, 8, "змея", 1); vn->nAnimal = Animal; c.mas[1] = vn;
 
 	//c.mas[2] = NULL;
 
 	c.mas[3] = new node;
 	NewInAnimal(Animal, FISH, 13, "лещ", 3);
-	c.mas[3]->Animal = Animal; c.mas[3]->next = NULL;
+	c.mas[3]->nAnimal = Animal; c.mas[3]->next = NULL;
 
 	c.mas[4] = new node;
 	NewInAnimal(Animal, BEAST, 5, "кот", 1);
-	c.mas[4]->Animal = Animal; c.mas[4]->next = NULL;
+	c.mas[4]->nAnimal = Animal; c.mas[4]->next = NULL;
 	//c.mas[5] = NULL;
 	//c.mas[6] = NULL;
 	//c.mas[7] = NULL;
 
 	c.mas[8] = new node;
 	NewInAnimal(Animal, BEAST, 21, "человек", 2);
-	c.mas[8]->Animal = Animal; c.mas[8]->next = NULL;
+	c.mas[8]->nAnimal = Animal; c.mas[8]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 6, "форель", 1); vn->Animal = Animal; c.mas[8] = vn;
+	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 6, "форель", 1); vn->nAnimal = Animal; c.mas[8] = vn;
 	vn = new node;
-	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 4, "язь", 3); vn->Animal = Animal; c.mas[8] = vn;
+	vn->next = c.mas[8]; NewInAnimal(Animal, FISH, 4, "язь", 3); vn->nAnimal = Animal; c.mas[8] = vn;
 
 	c.mas[9] = new node;
 	NewInAnimal(Animal, FISH, 10, "пескарь", 4);
-	c.mas[9]->Animal = Animal; c.mas[9]->next = NULL;
+	c.mas[9]->nAnimal = Animal; c.mas[9]->next = NULL;
 	vn = new node;
-	vn->next = c.mas[9]; NewInAnimal(Animal, BIRD, 2, "дятел", 1); vn->Animal = Animal; c.mas[9] = vn;
+	vn->next = c.mas[9]; NewInAnimal(Animal, BIRD, 2, "дятел", 1); vn->nAnimal = Animal; c.mas[9] = vn;
 }
 void ExpectContainerOneBird(container &c)
 {
@@ -522,7 +524,7 @@ void ExpectContainerOneBird(container &c)
 
 	c.mas[0] = new node;
 	NewInAnimal(Animal, BIRD, 2, "голубь", 0);	
-	c.mas[0]->Animal = Animal; c.mas[0]->next = NULL;
+	c.mas[0]->nAnimal = Animal; c.mas[0]->next = NULL;
 }
 void ExpectContainerOneFish(container &c)
 {
@@ -531,7 +533,7 @@ void ExpectContainerOneFish(container &c)
 
 	c.mas[3] = new node;
 	NewInAnimal(Animal, FISH, 13, "лещ", 3);
-	c.mas[3]->Animal = Animal; c.mas[3]->next = NULL;
+	c.mas[3]->nAnimal = Animal; c.mas[3]->next = NULL;
 }
 void ExpectContainerOneBeast(container &c)
 {
@@ -540,7 +542,7 @@ void ExpectContainerOneBeast(container &c)
 
 	c.mas[8] = new node;
 	NewInAnimal(Animal, BEAST, 21, "человек", 2);
-	c.mas[8]->Animal = Animal; c.mas[8]->next = NULL;
+	c.mas[8]->nAnimal = Animal; c.mas[8]->next = NULL;
 }
 TEST_F(CContainerTest, CheckInit)
 {

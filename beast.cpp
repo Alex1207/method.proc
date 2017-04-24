@@ -7,16 +7,16 @@
 
 using namespace std;
 string groups[4] = {"травоядный", "хищный", "всеядный"};
-void InBeast(beast **Beast, ifstream &f1)
+void InBeast(beast **Beast, ifstream &InFile)
 {	
-	CheckFileExist(f1);	
-	CheckFileEnd(f1);
+	CheckFileExist(InFile);	
+	CheckFileEnd(InFile);
 	beast *B = new beast;
-	int G = 3;
-	f1 >> G; 
-	CheckInputValue(f1);
-	if ((G>=0)&&(G<3))
-		B->Group = G;
+	int Group = 3;
+	InFile >> Group; 
+	CheckInputValue(InFile);
+	if ((Group>=0)&&(Group<3))
+		B->group = Group;
 	else 	
 	{
 		cout << "Неверные данные во входном файле(Группа зверя может принимать только значения от 0 до 2)!\n";
@@ -25,8 +25,8 @@ void InBeast(beast **Beast, ifstream &f1)
 	}
 	*Beast = B;
 }
-void OutBeast(beast* Beast, ofstream &f2)
+void OutBeast(beast* Beast, ofstream &OutFile)
 {
 	//cout << " - это " << groups[Beast->Group] << " звёр";
-	f2 << " - это " << groups[Beast->Group] << " звёр";
+	OutFile << " - это " << groups[Beast->group] << " звёр";
 }

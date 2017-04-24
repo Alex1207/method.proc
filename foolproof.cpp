@@ -3,20 +3,20 @@
 //#include <fstream>
 #include "foolproof.h"
 
-void CheckFileExist(ifstream &f1)
+void CheckFileExist(ifstream &File)
 {
-	if (!f1)
+	if (!File)
 	{
 		cout << "Ошибка чтения входного файла! Возможно, файла не существует.\n";
 		system("pause");
 		exit(1);
 	}
 }
-void CheckEmptyFile(ifstream &f1)
+void CheckEmptyFile(ifstream &File)
 {
-	f1.seekg (0, std::ios::end);
-	int file_size = f1.tellg();
-	f1.seekg (0, std::ios::beg);
+	File.seekg (0, std::ios::end);
+	int file_size = File.tellg();
+	File.seekg (0, std::ios::beg);
 	if (file_size == 0)	
 	{
 		cout << "Ошибка чтения входного файла! Файл пуст.\n";
@@ -24,18 +24,18 @@ void CheckEmptyFile(ifstream &f1)
 		exit(1);
 	}
 }
-void CheckFileEnd(ifstream &f1)
+void CheckFileEnd(ifstream &File)
 {
-	if(f1.eof())
+	if(File.eof())
 	{
 		cout << "Ошибка чтения входного файла! Неожиданный конец файла.\n";
 		system("pause");
 		exit(1);
 	}
 }
-void CheckInputValue(ifstream &f1)
+void CheckInputValue(ifstream &File)
 {
-	if(f1.fail())
+	if(File.fail())
 	{
 		cout << "Ошибка чтения входного файла! Введены некорректные значения.\n" << endl;
 		system("pause");

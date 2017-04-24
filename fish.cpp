@@ -7,17 +7,17 @@
 
 using namespace std;
 string places[6]={"река", "озеро", "море", "океан", "пруд", "аквариум"};
-void InFish(fish **Fish, ifstream &f1)
+void InFish(fish **Fish, ifstream &InFile)
 {	
-	CheckFileExist(f1);
-	CheckFileEnd(f1);
+	CheckFileExist(InFile);
+	CheckFileEnd(InFile);
 	fish *F = new fish;
 	int Place = 6;
-	f1 >> Place; //0 - river, 1 - lake, 2 - sea, 3 - ocean, 4 - pond, 5 - aquarium
+	InFile >> Place; //0 - river, 1 - lake, 2 - sea, 3 - ocean, 4 - pond, 5 - aquarium
 	//f1 >> F->name;
-	CheckInputValue(f1);
+	CheckInputValue(InFile);
 	if ((Place>=0)&&(Place<6))
-		F->Place = Place;
+		F->place = Place;
 	else
 	{
 		cout << "Неверные данные во входном файле(место обитания рыбок может принимать только значения от 0 до 5)!\n";
@@ -26,8 +26,8 @@ void InFish(fish **Fish, ifstream &f1)
 	}
 	*Fish = F;
 }
-void OutFish(fish* Fish, ofstream &f2)
+void OutFish(fish* Fish, ofstream &OutFile)
 {
 	//cout << " - это рыбка" << ", место ее обитания: " << places[Fish->Place];
-	f2 << " - это рыбка" <<  ", место ее обитания: " << places[Fish->Place];
+	OutFile << " - это рыбка" <<  ", место ее обитания: " << places[Fish->place];
 }

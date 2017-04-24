@@ -9,84 +9,84 @@
 #include "animal.h"
 
 using namespace std;
-animal InAnimal(ifstream &f1)
+animal InAnimal(ifstream &InFile)
 {	
-	CheckFileExist(f1);	
-	CheckFileEnd(f1);
+	CheckFileExist(InFile);	
+	CheckFileEnd(InFile);
 	animal Animal;
-	int key;
-	f1 >> key;
-	CheckInputValue(f1);
-	if (!((key>=0)&&(key<3))) 	
+	int Key;
+	InFile >> Key;
+	CheckInputValue(InFile);
+	if (!((Key>=0)&&(Key<3))) 	
 	{
 		cout << "Неверные данные во входном файле(Вид животного может принимать только значения от 0 до 2)!\n";// << key<<endl;
 		system("pause");
 		exit(1);
 	}
-	if (key == 1)//1-fish
+	if (Key == 1)//1-fish
 	{
 		fish*Fish = NULL;
-		InFish(&Fish, f1);
+		InFish(&Fish, InFile);
 		Animal.key = FISH;
 		Animal.object = (void*)Fish;
 	}
-	if (key == 0)//0-bird
+	if (Key == 0)//0-bird
 	{
 		bird* Bird = NULL;
-		InBird(&Bird, f1);
+		InBird(&Bird, InFile);
 		Animal.key = BIRD;
 		Animal.object = (void*)Bird;
 	}
-	if (key == 2)//2-beast
+	if (Key == 2)//2-beast
 	{
 		beast* Beast = NULL;
-		InBeast(&Beast, f1);
+		InBeast(&Beast, InFile);
 		Animal.key = BEAST;
 		Animal.object = (void*)Beast;
 	}	
-	CheckFileEnd(f1);
-	int age;
-	f1 >> age;
-	CheckInputValue(f1);
-	if (age<0) 	
+	CheckFileEnd(InFile);
+	int Age;
+	InFile >> Age;
+	CheckInputValue(InFile);
+	if (Age<0) 	
 	{
 		cout << "Неверные данные во входном файле(Возраст животного не может быть отрицательным)!\n";
 		system("pause");
 		exit(1);
 	}
-	Animal.age = age;		
-	CheckFileEnd(f1);
-	f1 >> Animal.name;
+	Animal.age = Age;		
+	CheckFileEnd(InFile);
+	InFile >> Animal.name;
 	return Animal;
 }
-void OutAnimal(animal Animal, ofstream  &f2)
+void OutAnimal(animal Animal, ofstream  &OutFile)
 {
 	//cout << Animal.name;
-	f2 << Animal.name;
+	OutFile << Animal.name;
 	if (Animal.key == FISH)
 	{
 		fish* Fish = Fish = (fish*)(Animal.object);
-		OutFish(Fish, f2);
+		OutFish(Fish, OutFile);
 	}
 	if (Animal.key == BIRD)
 	{
 		bird* Bird = (bird*)(Animal.object);
-		OutBird(Bird, f2);
+		OutBird(Bird, OutFile);
 	}
 	if (Animal.key == BEAST)
 	{
 		beast* Beast = (beast*)(Animal.object);
-		OutBeast(Beast, f2);
+		OutBeast(Beast, OutFile);
 	}
 	//cout << ", возраст: " << Animal.age;
-	f2 <<  ", возраст: " << Animal.age;
+	OutFile <<  ", возраст: " << Animal.age;
 	//cout << ". Количество символов в имени: " << AmountSymbolsOfString(Animal) << "\n";
-	f2 << ". Количество символов в имени: " << AmountSymbolsOfString(Animal) << "\n";
+	OutFile << ". Количество символов в имени: " << AmountSymbolsOfString(Animal) << "\n";
 }
 int AmountSymbolsOfString(animal Animal)
 {
-	string str = Animal.name;
-	return str.length();
+	string Str = Animal.name;
+	return Str.length();
 }
 bool Less(animal Animal1, animal Animal2)
 {
