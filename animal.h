@@ -15,6 +15,7 @@ struct animal
 	string name;
 };
 #endif
+animal InAnimal(ifstream &InFile);
 void OutAnimal(animal Animal, ofstream  &OutFile);
 int AmountSymbolsOfString(animal Animal);
 bool Less(animal Animal1, animal Animal2);
