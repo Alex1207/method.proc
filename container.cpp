@@ -2,6 +2,7 @@
 #include "container.h"
 #include "animal.h"
 #include "iostream"
+#include "foolproof.h"
 #include <fstream>
 
 using namespace std;
@@ -30,7 +31,18 @@ void Del(container &c)
 }
 void In(container &c, ifstream & f1)
 {	
-	f1 >> c.kol;
+	CheckFileExist(f1);
+	CheckEmptyFile(f1);
+	int kol;
+	f1 >> kol;
+	CheckInputValue(f1);	
+	if (kol<0) 	
+	{
+		cout << "Неверные данные во входном файле(Количество животных не может быть отрицательным)!\n";
+		system("pause");
+		exit(1);
+	}
+	c.kol = kol;
 	for (int i = 0; i < c.kol; i++)
 	{
 		animal Animal;
@@ -51,6 +63,10 @@ void In(container &c, ifstream & f1)
 			c.mas[sum] = vn;
 		}
 	}	
+	if(!f1.eof())
+	{
+		cout << "После считанных данных в файле есть что-то еще. Эта информация обрабатываться не будет\n";
+	}
 }
 void Out(container c, ofstream & f2)
 {

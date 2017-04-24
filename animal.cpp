@@ -1,17 +1,28 @@
 #include "stdafx.h"
-#include "animal.h"
 #include <string>
 #include "iostream"
 #include <fstream>
 #include "bird.h"
 #include "fish.h"
 #include "beast.h"
+#include "foolproof.h"
+#include "animal.h"
+
 using namespace std;
 animal InAnimal(ifstream &f1)
-{
+{	
+	CheckFileExist(f1);	
+	CheckFileEnd(f1);
 	animal Animal;
 	int key;
 	f1 >> key;
+	CheckInputValue(f1);
+	if (!((key>=0)&&(key<3))) 	
+	{
+		cout << "Неверные данные во входном файле(Вид животного может принимать только значения от 0 до 2)!\n";// << key<<endl;
+		system("pause");
+		exit(1);
+	}
 	if (key == 1)//1-fish
 	{
 		fish*Fish = NULL;
@@ -32,8 +43,19 @@ animal InAnimal(ifstream &f1)
 		InBeast(&Beast, f1);
 		Animal.key = BEAST;
 		Animal.object = (void*)Beast;
+	}	
+	CheckFileEnd(f1);
+	int age;
+	f1 >> age;
+	CheckInputValue(f1);
+	if (age<0) 	
+	{
+		cout << "Неверные данные во входном файле(Возраст животного не может быть отрицательным)!\n";
+		system("pause");
+		exit(1);
 	}
-	f1 >> Animal.age;
+	Animal.age = age;		
+	CheckFileEnd(f1);
 	f1 >> Animal.name;
 	return Animal;
 }
