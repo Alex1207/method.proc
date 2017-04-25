@@ -20,5 +20,6 @@ void Del(container &Cont);
 void In(container &Cont, ifstream &InFile);
 void Out(container Cont, ofstream &OutFile);
 void Sort(container &Cont);
-void OutOnlyFish(container Cont, ofstream & OutFile);
+void OutOnlyFish(container Cont, ofstream &OutFile);
 int SumElementsOfString(animal Animal, int N);
+void MultiMethod(container Cont, ofstream &OutFile);

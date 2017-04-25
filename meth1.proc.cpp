@@ -1,5 +1,5 @@
 // —читывает из файла данные и переписывает их в другой файл в более читаемом виде(процедурный стиль)
-//
+//+ћультиметоды
 #include "stdafx.h"
 #include <Windows.h>
 #include "iostream"
@@ -26,6 +26,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	ofstream OutFile(argv[2]);
 	Out(Cont, OutFile);
 	OutOnlyFish(Cont, OutFile);
+	MultiMethod(Cont, OutFile);
 	Del(Cont);
 	system("pause");
 	return 0;

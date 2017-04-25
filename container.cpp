@@ -165,3 +165,167 @@ int SumElementsOfString(animal Animal, int N)
 	}
 	return Sum;
 }
+void MultiMethod(container Cont, ofstream &OutFile)
+{
+	//cout << "Мультиметод: " << endl;
+	OutFile << "Мультиметод: " << endl;
+	int k = 0;
+	for (int i = 0; i<Cont.n; i++)
+	{
+		//cout << "\n" << i << "\n";
+		if (Cont.mas[i] != NULL)
+		{
+			node* Node1 = Cont.mas[i];
+			while (Node1)
+			{
+				for (int j = i; j<Cont.n; j++)
+				{
+					node* Node2;
+					if (j==i)
+						Node2 = Node1->next;
+					else
+						Node2 = Cont.mas[j];
+					//cout << "\n" << i << "\n";
+					if (Cont.mas[j] != NULL)
+					{
+						//vn2 = c.mas[j];
+						while (Node2)
+						{
+							switch(Node1->nAnimal.key)
+							{
+							case BIRD:
+								{
+									switch(Node2->nAnimal.key)
+									{
+									case BIRD:
+										{
+											k++;
+											//cout << "\nПтичка и птичка." << endl;
+											OutFile << "\nПтичка и птичка." << endl;
+											OutAnimal(Node1->nAnimal, OutFile);
+											OutAnimal(Node2->nAnimal, OutFile);
+											break;
+										}
+									case FISH:
+										{
+											k++;
+											//cout << "\nПтичка и рыбка." << endl;
+											OutFile << "\nПтичка и рыбка." << endl;
+											OutAnimal(Node1->nAnimal, OutFile);
+											OutAnimal(Node2->nAnimal, OutFile);
+											break;
+										}
+									case BEAST:
+										{
+											k++;
+											//cout << "\nПтичка и звёр." << endl;
+											OutFile << "\nПтичка и звёр." << endl;
+											OutAnimal(Node1->nAnimal, OutFile);
+											OutAnimal(Node2->nAnimal, OutFile);
+											break;
+										}
+									default:
+										{
+											k++;
+											//cout << "\nНеизвестный тип" << endl;
+											OutFile << "\nНеизвестный тип" << endl;
+										}
+									}
+									break;
+								}
+							case FISH:
+								{
+									switch(Node2->nAnimal.key)
+									{
+									case BIRD:
+										{
+											k++;
+											//cout << "\nРыбка и птичка." << endl;
+											OutFile << "\nРыбка и птичка." << endl;
+											OutAnimal(Node1->nAnimal, OutFile);
+											OutAnimal(Node2->nAnimal, OutFile);
+											break;
+										}
+									case FISH:
+										{
+											k++;
+											//cout << "\nРыбка и рыбка." << endl;
+											OutFile << "\nРыбка и рыбка." << endl;
+											OutAnimal(Node1->nAnimal, OutFile);
+											OutAnimal(Node2->nAnimal, OutFile);
+											break;
+										}
+									case  BEAST:
+										{
+											k++;
+											//cout << "\nРыбка и звёр." << endl;
+											OutFile << "\nРыбка и звёр." << endl;
+											OutAnimal(Node1->nAnimal, OutFile);
+											OutAnimal(Node2->nAnimal, OutFile);
+											break;
+										}
+									default:
+										{
+											k++;
+											//cout << "\nНеизвестный тип" << endl;
+											OutFile << "\nНеизвестный тип" << endl;
+										}
+									}
+									break;
+								}
+							case BEAST:
+								{
+									switch(Node2->nAnimal.key)
+									{
+									case BIRD:
+										{
+											k++;
+											//cout << "\nЗвёр и птичка." << endl;
+											OutFile << "\nЗвёр и птичка." << endl;
+											OutAnimal(Node1->nAnimal, OutFile);
+											OutAnimal(Node2->nAnimal, OutFile);
+											break;
+										}
+									case FISH:
+										{
+											k++;
+											//cout << "\nЗвёр и рыбка." << endl;
+											OutFile << "\nЗвёр и рыбка." << endl;
+											OutAnimal(Node1->nAnimal, OutFile);
+											OutAnimal(Node2->nAnimal, OutFile);
+											break;
+										}
+									case  BEAST:
+										{
+											k++;
+											//cout << "\nЗвёр и звёр." << endl;
+											OutFile << "\nЗвёр и звёр." << endl;
+											OutAnimal(Node1->nAnimal, OutFile);
+											OutAnimal(Node2->nAnimal, OutFile);
+											break;
+										}
+									default:
+										{
+											k++;
+											//cout << "\nНеизвестный тип" << endl;
+											OutFile << "\nНеизвестный тип" << endl;
+										}
+									}
+									break;
+								}
+							default:
+								{
+									//cout << "\nНеизвестный тип" << endl;
+									OutFile << "\nНеизвестный тип" << endl;
+								}
+							}
+							Node2 = Node2->next;
+						}
+					}
+				}
+				Node1 = Node1->next;
+			}
+		}
+	}
+	//cout << k;
+}
