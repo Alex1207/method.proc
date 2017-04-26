@@ -22,6 +22,7 @@ animal InAnimal( ifstream &f1)
 	animal Animal;
 	int key;
 	f1 >> key;
+	//switch(key) may be more convinient for adding new case and default case.
 	if (key == 1)//1-fish
 	{
 		fish*Fish = NULL;
@@ -51,9 +52,10 @@ void OutAnimal(animal Animal, ofstream  &f2)
 {
 	cout << Animal.name;
 	f2 << Animal.name;
+	//switch(key)
 	if (Animal.key == FISH)
 	{
-		fish* Fish = Fish = (fish*)(Animal.object);
+		fish* Fish = Fish = (fish*)(Animal.object); //fish* Fish = (fish*)(Animal.object);
 		OutFish(Fish, f2);
 	}
 	if (Animal.key == BIRD)

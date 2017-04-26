@@ -4,7 +4,6 @@
 //+добавлена новая функция вычисления количества символов в имени
 //+сортировка
 //+вывод только рыбок
-
 #include "stdafx.h"
 #include <Windows.h>
 #include "iostream"
@@ -35,4 +34,3 @@ int _tmain(int argc, _TCHAR* argv[])
 	system("pause");
 	return 0;
 }
-
