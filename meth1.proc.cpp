@@ -28,6 +28,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	ofstream f2(argv[2]);
 	Out(mas, f2);
+	MultiMethod(mas, f2);
 	Del(mas);
 	system("pause");
 	return 0;
